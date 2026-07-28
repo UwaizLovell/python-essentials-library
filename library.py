@@ -1,4 +1,4 @@
-==== LIBRARY MANAGEMENT SYSTEM ====
+# Library Management System - Uwaiz Slade Lovell - Python Essentials 1
 
 def library_totals(books):
     pass 
@@ -24,9 +24,53 @@ def read_valid_copies():
         print("That is not a valid number of copies.") 
         return None 
 
+    # Return the valid number of copies
+    return copies 
+
 # To add new a new book or copies to an existing book by the same author 
 def add_book(books, next_book_number):
-    pass
+
+    # Ask the user to enter the title of the book
+    title = input("Title: ").strip() 
+
+    # Check if the user entered a blank input
+    if title == "":
+        print("A title cannot be blank.")
+        return next_book_number 
+
+    # Ask the user to enter the author's name
+    author = input("Author: ").strip()
+
+    # Check if the user entered a blank input 
+    if author == "":
+        print("An author cannot be blank.")
+        return next_book_number 
+
+    # Ask the user for the number of copies 
+    copies = read_valid_copies()
+
+    # To stop the user if the input is invalid
+    if copies is None:
+        return next_book_number 
+
+    # Create the ID for the next book
+    book_id = "B" + str(next_book_number) 
+
+    # Add new book to library 
+    books[book_id] = {
+        "title": title,
+        "author": author,
+        "total": copies,
+        "available": copies,
+        "times_borrowed": 0
+    }
+
+    # Confirm the book was added
+    print("Book added successfully.") 
+
+    # Return the next available book number 
+    return next_book_number + 1 
+
 
 # To register a new member's ID 
 def register_member(members, next_member_number):
