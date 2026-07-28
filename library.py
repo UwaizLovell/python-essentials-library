@@ -1,6 +1,5 @@
 # Library Management System - Uwaiz Lovell - Python Essentials 1
 
-# To return the totals (total_copies, copies available) from the whole library as a tuple
 def library_totals(books):
     pass 
 
@@ -13,8 +12,64 @@ def read_valid_copies():
     pass
 
 # To add new a new book or copies to an existing book by the same author 
-def add_book(books):
-    pass
+def add_book(books, next_book_number):
+
+    # Ask the user for the book details.
+    title = input("Title: ").strip()
+    author = input("Author: ").strip()
+
+    # Check that the user input is not blank 
+    if title == "":
+        print("The title cannot be blank.")
+        return 
+    
+    # Check that the user input is not blank 
+    if author == "":
+        print("The author cannot be blank.")
+        return 
+
+    # How many copies the user would like to input
+    try:
+        copies = int(input("Number of copies: "))
+    except ValueError:
+        print("This is not a valid number of copies.")
+        return
+
+    # Make sure the number of copies start at 1
+    if copies <= 0: 
+        print("The number of copies must be more than 0.")
+        return
+
+    # Check if the book already exists
+    for book_id, book in books.items():   
+
+        #Check if the title and author match an existing book
+        if book["title"].lower() == title.lower() and book["author"].lower() == author.lower():
+
+           # Add new copies of an existing book
+           book["copies"] += copies
+           print(" Copies added successfully.")
+           return      
+
+    # Create the next Book ID 
+    book_id = "B" + str(next_book_number) 
+
+    # Adding a new book to the dictionary 
+    books[book_id] = {
+        "title": title,
+        "author": author,
+        "copies": copies,
+    }
+
+    # To notify the user the book was added successfully
+    print("Book was added successfully.") 
+
+    # Increase the book number for the next new book 
+    next_book_number += 1 
+
+    # To return the updated counter to the main program 
+    return next_book_number 
+
 
 # To register a new member's ID 
 def register_member(members):
@@ -65,7 +120,8 @@ while True:
     choice = input("Choose an option (1-8): ")
 
     if choice == '1':
-        add_book(books)
+        next_book_number = add_book(books, next_book_number)
+        print(books)  # Test feature in the main program 
     elif choice == '2':
         register_member(members)
     elif choice == '3':
