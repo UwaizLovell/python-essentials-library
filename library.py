@@ -8,7 +8,7 @@ def library_totals(books):
 def most_borrowed(books):
     pass
 
-# Ask for number of cpoies, uses exception handling to vaidate the return as an integer or None 
+# Ask for number of copies, uses exception handling to validate the return as an integer or None 
 def read_valid_copies():
     pass
 
@@ -21,12 +21,12 @@ def register_member(members):
     pass 
 
 # To see which books were borrowed, how many books were borrowed and by which member. This is used to update both dictionaries. 
-def borrow_books(books, members):
+def borrow_book(books, members):
     pass
 
 
-# To see which books were returned, how many books were returned and which memeber returned them. The reverse of the borrow function but also updates both dictionaries 
-def return_books(books, members):
+# To see which books were returned, how many books were returned and which member returned them. The reverse of the borrow function but also updates both dictionaries 
+def return_book(books, members):
     pass
 
 # To search for books in the library, by number of copies, title and author. 
@@ -64,9 +64,26 @@ while True:
 
     choice = input("Choose an option (1-8): ")
 
-   
-    if choice == '8':
+    if choice == '1':
+        add_book(books)
+    elif choice == '2':
+        register_member(members)
+    elif choice == '3':
+        borrow_book(books, members)
+    elif choice == '4':
+        return_book(books, members)
+    elif choice == '5':
+        search_catalogue(books)
+    elif choice == '6':
+        member_summary(books, members)
+    elif choice == '7':
+        library_report(books, members)
+    elif choice == '8':
         print("Leaving the library, Goodbye.")
         break
+    else:
+        print("Invalid choice. Please choose from 1-8.") 
+
+
     
     
