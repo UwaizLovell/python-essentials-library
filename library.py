@@ -1,4 +1,4 @@
-# Library Management System - Uwaiz Lovell - Python Essentials 1
+==== LIBRARY MANAGEMENT SYSTEM ====
 
 def library_totals(books):
     pass 
@@ -9,71 +9,29 @@ def most_borrowed(books):
 
 # Ask for number of copies, uses exception handling to validate the return as an integer or None 
 def read_valid_copies():
-    pass
+
+    # Ask the user for the number of copies they would like to add 
+    try:
+        copies = int(input("Number of copies: "))
+
+        # Handle any input that cannot be converted into an integer 
+    except ValueError:
+        print("That is not a valid number of copies.")
+        return None
+
+    # Check if the number of copies is atleast 1
+    if copies < 1:
+        print("That is not a valid number of copies.") 
+        return None 
 
 # To add new a new book or copies to an existing book by the same author 
 def add_book(books, next_book_number):
-
-    # Ask the user for the book details.
-    title = input("Title: ").strip()
-    author = input("Author: ").strip()
-
-    # Check that the user input is not blank 
-    if title == "":
-        print("The title cannot be blank.")
-        return 
-    
-    # Check that the user input is not blank 
-    if author == "":
-        print("The author cannot be blank.")
-        return 
-
-    # How many copies the user would like to input
-    try:
-        copies = int(input("Number of copies: "))
-    except ValueError:
-        print("This is not a valid number of copies.")
-        return
-
-    # Make sure the number of copies start at 1
-    if copies <= 0: 
-        print("The number of copies must be more than 0.")
-        return
-
-    # Check if the book already exists
-    for book_id, book in books.items():   
-
-        #Check if the title and author match an existing book
-        if book["title"].lower() == title.lower() and book["author"].lower() == author.lower():
-
-           # Add new copies of an existing book
-           book["copies"] += copies
-           print(" Copies added successfully.")
-           return      
-
-    # Create the next Book ID 
-    book_id = "B" + str(next_book_number) 
-
-    # Adding a new book to the dictionary 
-    books[book_id] = {
-        "title": title,
-        "author": author,
-        "copies": copies,
-    }
-
-    # To notify the user the book was added successfully
-    print("Book was added successfully.") 
-
-    # Increase the book number for the next new book 
-    next_book_number += 1 
-
-    # To return the updated counter to the main program 
-    return next_book_number 
-
+    pass
 
 # To register a new member's ID 
-def register_member(members):
-    pass 
+def register_member(members, next_member_number):
+    pass
+
 
 # To see which books were borrowed, how many books were borrowed and by which member. This is used to update both dictionaries. 
 def borrow_book(books, members):
@@ -107,13 +65,13 @@ next_member_number = 1
 
 # Keep the program running until the user decides to exit.
 while True:
-    print("\nLibrary Management System")
-    print("1. Add Book")
-    print("2. Register Member")
-    print("3. Borrow Books")
-    print("4. Return Books")
-    print("5. Search Catalogue")
-    print("6. Member Summary")
+    print("\n===== Library Management System =====")
+    print("1. Add a book")
+    print("2. Register a member")
+    print("3. Borrow a book")
+    print("4. Return a book")
+    print("5. Search the catalogue")
+    print("6. Member summary")
     print("7. Library Report")
     print("8. Exit")
 
@@ -121,9 +79,8 @@ while True:
 
     if choice == '1':
         next_book_number = add_book(books, next_book_number)
-        print(books)  # Test feature in the main program 
     elif choice == '2':
-        register_member(members)
+        next_member_number = register_member(members, next_member_number)
     elif choice == '3':
         borrow_book(books, members)
     elif choice == '4':
@@ -138,7 +95,7 @@ while True:
         print("Leaving the library, Goodbye.")
         break
     else:
-        print("Invalid choice. Please choose from 1-8.") 
+        print("Invalid choice. Please enter 1-8.") 
 
 
     
