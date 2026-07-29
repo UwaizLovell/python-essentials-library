@@ -300,7 +300,40 @@ def member_summary(members, books):
     
 # A report showing all the information in the library.
 def library_report(books, members):
-    pass
+
+    # Check if there are any books in the library 
+    if len(books) == 0:
+        print("The library catalogue is empty.")
+        return 
+
+    # Calculate how many different book titles there are in the library
+    total_titles = len(books)
+
+    # Unpack the tuple from the helper function 
+    total_copies, available_copies =  library_totals(books)
+
+    # To see how many copies are currently being borrowed 
+    copies_being_borrowed = total_copies - available_copies
+
+    # Recieve the ID of the most borrowed book
+    most_borrowed_book = most_borrowed(books) 
+
+    print("Library Report")
+    print("Titles:", total_titles)
+    print("Total copies:", total_copies)
+    print("Available copies:", available_copies)
+    print("Copies currently being borrowed:", copies_being_borrowed) 
+
+    # To display the most borrowed book 
+    if most_borrowed_book is None:
+        print("Most borrowed book: None")
+    else: 
+        print(
+            "Most borrowed book:", most_borrowed_book, "-", 
+            books[most_borrowed_book]["title"], " by ", 
+            books[most_borrowed_book]["author"], 
+            "(" + str(books[most_borrowed_book]["times_borrowed"]) + " borrows)"
+        )
 
 # Main Program
 
