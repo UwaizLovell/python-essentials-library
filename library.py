@@ -1,7 +1,24 @@
 # Library Management System - Uwaiz Slade Lovell - Python Essentials 1
 
+# To check the total number of copies and available copies in the library
 def library_totals(books):
-    pass 
+
+    # Keep track of the total number of copies 
+    total_copies = 0
+
+    # Keep track of the total number of available copies
+    available_copies = 0 
+
+    for book_id in books:
+
+        # Add the total number of copies for this book
+        total_copies += books[book_id]["total"]
+
+        # Add the number of available copies for this book
+        available_copies += books[book_id]["available"]
+
+    # Return the total copies and available copies as a tuple
+    return total_copies, available_copies  
 
 # Shows the ID of the most borrowed book, or None is no books are borrowed 
 def most_borrowed(books):
@@ -258,10 +275,9 @@ def member_summary(members, books):
     # Display the books currently borrowed by the member 
     print("Borrowed books:")
 
-    for book_id in members[member_id]["borrowed"]
-    print(book_id + ": " + books[book_id]["title"] + " by " + books[books_id]["author"])
+    for book_id in members[member_id]["borrowed"]:
+        print(book_id + ": " + books[book_id]["title"] + " by " + books[book_id]["author"])
     
-
 # A report showing all the information in the library.
 def library_report(books, members):
     pass
