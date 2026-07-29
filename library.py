@@ -53,6 +53,24 @@ def add_book(books, next_book_number):
     if copies is None:
         return next_book_number 
 
+    # Check if the book already exists 
+    for existing_book_id in books:
+
+        existing_book = books[existing_book_id]
+
+        if (existing_book["title"].lower() == title.lower() and
+                existing_book["author"].lower() == author.lower()):
+
+            existing_book["total"] += copies
+            existing_book["available"] += copies 
+
+            print("Added " + str(copies) + " more copies of " +
+                  existing_book_id + ": " + existing_book["title"] +
+                  " (now " + str(existing_book["total"]) + " total)") 
+
+            return next_book_number 
+
+
     # Create the ID for the next book
     book_id = "B" + str(next_book_number) 
 
@@ -66,7 +84,8 @@ def add_book(books, next_book_number):
     }
 
     # Confirm the book was added
-    print("Book added successfully.") 
+    print("Added " + book_id + ": " + title + " by " + author +
+      " (" + str(copies) + " copies)")
 
     # Return the next available book number 
     return next_book_number + 1 
@@ -74,7 +93,29 @@ def add_book(books, next_book_number):
 
 # To register a new member's ID 
 def register_member(members, next_member_number):
-    pass
+
+    # Ask the user to enter the member's name
+    name = input("Member name: ").strip()
+
+    # Check if the user entered a blank name
+    if name == "":
+        print("A member name cannot be blank.")
+        return next_member_number
+
+    # Create ID for the next member
+    member_id = "M" + str(next_member_number)
+
+    # Register the member 
+    members[member_id] = {
+        "name": name, 
+        "borrowed": []
+    }
+
+    # Confirm the member was registered
+    print("Registered " + member_id + ": " + name)
+
+    # Return the next available member number
+    return next_member_number + 1 
 
 
 # To see which books were borrowed, how many books were borrowed and by which member. This is used to update both dictionaries. 
