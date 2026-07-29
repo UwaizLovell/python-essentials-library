@@ -65,7 +65,7 @@ def add_book(books, next_book_number):
             existing_book["available"] += copies 
 
             print("Added " + str(copies) + " more copies of " +
-                  existing_book_id + ": " + existing_book["title"] +
+                  existing_book_id + ": " + existing_book["title"] + " by " + books[book_id]["author"] + 
                   " (now " + str(existing_book["total"]) + " total)") 
 
             return next_book_number 
@@ -89,7 +89,6 @@ def add_book(books, next_book_number):
 
     # Return the next available book number 
     return next_book_number + 1 
-
 
 # To register a new member's ID 
 def register_member(members, next_member_number):
@@ -116,7 +115,6 @@ def register_member(members, next_member_number):
 
     # Return the next available member number
     return next_member_number + 1 
-
 
 # To see which books were borrowed, how many books were borrowed and by which member. This is used to update both dictionaries. 
 def borrow_book(books, members):
@@ -158,15 +156,48 @@ def borrow_book(books, members):
     # To update the members dictionaries 
     members[member_id]["borrowed"].append(book_id)
 
-    print(member_id + " borrowed " + book_id + ": " +
-      books[book_id]["title"] +
+    # Output message giving all the details
+    print(member_id + " " + members[member_id]["name"] + " borrowed " + book_id + ": " +
+      books[book_id]["title"] + " by " + 
+      books[book_id]["author"] +
       " (" + str(books[book_id]["available"]) + " copies available)")
-
-
 
 # To see which books were returned, how many books were returned and which member returned them. The reverse of the borrow function but also updates both dictionaries 
 def return_book(books, members):
-    pass
+
+    # Ask the user for the member ID 
+    member_id = input("Member ID: ").strip()
+
+    # Ask the user for the book ID
+    book_id = input("Book ID: ").strip()
+
+    # Check if the member exists 
+    if member_id not in members: 
+        print("Member not found. ")
+        return 
+
+    # Check if the member has borrowed this book 
+    if book_id not in members[member_id]["borrowed"]:
+        print(member_id + " " + members[member_id]["name"] +
+               " does not have " + book_id + " " + books[book_id]["title"] + " by " + 
+                     books[book_id]["author"] + ".")
+        return 
+
+    # Remove the book from the member's borrowed list 
+    members[member_id]["borrowed"].remove(book_id) 
+
+    # Increase the available copies of the book
+    books[book_id]["available"] += 1
+
+    # Output message giving all the details
+    print(
+    member_id + " " + members[member_id]["name"] +
+    " returned " + 
+    book_id + " " +
+    books[book_id]["title"] +
+    " by " +
+    books[book_id]["author"]
+    )
 
 # To search for books in the library, by number of copies, title and author. 
 def search_catalogue(books):
