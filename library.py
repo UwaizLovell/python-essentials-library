@@ -236,9 +236,31 @@ def search_catalogue(books):
         print("No books found matching that search.") 
 
 # Member summary taken from both dictionaries to create a list of the member's ID, name, books currently being borrowed, the ID and title and author of each book as well as None if no books borrowed.
-def member_summary(books, members):
-    pass
+def member_summary(members, books):
 
+    # Ask the user to a member ID 
+    member_id = input("Member ID: ").strip()
+
+    # Check if the member exists
+    if member_id not in members:
+        print("Member not found.")
+        return
+
+    # Display the member's details
+    print("Member ID: " + member_id)
+    print("Name: " + members[member_id]["name"])
+
+    # Check if the member has borrowed any books 
+    if len(members[member_id]["borrowed"]) == 0:
+        print("No books have been currently borrowed.")
+        return
+
+    # Display the books currently borrowed by the member 
+    print("Borrowed books:")
+
+    for book_id in members[member_id]["borrowed"]
+    print(book_id + ": " + books[book_id]["title"] + " by " + books[books_id]["author"])
+    
 
 # A report showing all the information in the library.
 def library_report(books, members):
@@ -277,7 +299,7 @@ while True:
     elif choice == '5':
         search_catalogue(books)
     elif choice == '6':
-        member_summary(books, members)
+        member_summary(members, books)
     elif choice == '7':
         library_report(books, members)
     elif choice == '8':
