@@ -22,7 +22,27 @@ def library_totals(books):
 
 # Shows the ID of the most borrowed book, or None is no books are borrowed 
 def most_borrowed(books):
-    pass
+
+    # Check the current most borrowed book
+    best_book_id = None
+
+    # Check the highest borrow count of a book 
+    most_times_borrowed = None 
+
+    # Loop through every book in library
+    for book_id in books:
+
+        # Check if it is the first book or has it been borrowed before 
+        if most_times_borrowed is None or books[book_id]["times_borrowed"] > most_times_borrowed:
+
+            # Update the highest borrow count
+            most_times_borrowed = books[book_id]["times_borrowed"]
+
+            # Name the book that has the highest count 
+            best_book_id = book_id 
+
+    # Return the ID of the most borrowed book 
+    return best_book_id
 
 # Ask for number of copies, uses exception handling to validate the return as an integer or None 
 def read_valid_copies():
