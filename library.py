@@ -120,7 +120,48 @@ def register_member(members, next_member_number):
 
 # To see which books were borrowed, how many books were borrowed and by which member. This is used to update both dictionaries. 
 def borrow_book(books, members):
-    pass
+
+    # Ask the user for the member ID 
+    member_id = input("Member ID: ").strip() 
+
+    # Ask the user for the book ID 
+    book_id = input ("Book ID: ").strip() 
+
+    # Check if the member exists 
+    if member_id not in members:
+        print("Member not fouund.")
+        return 
+
+    # Check if the book exists 
+    if book_id not in books:
+        print("Book not found.")
+        return 
+
+    # Check if the member has already borrowed 3 books 
+    if len(members[member_id]["borrowed"]) >= 3:
+        print("Member has already borrowed maximum number of books.")
+        return 
+
+    if book_id in members[member_id]["borrowed"]:
+        print("Member has already borrowed this book.") 
+        return
+
+    # Check if there are copies available
+    if books[book_id]["available"]== 0:
+        print("No copies of this book are available.")
+        return
+
+    # To update the books dictionary 
+    books[book_id]["available"] -= 1
+    books[book_id]["times_borrowed"] += 1
+
+    # To update the members dictionaries 
+    members[member_id]["borrowed"].append(book_id)
+
+    print(member_id + " borrowed " + book_id + ": " +
+      books[book_id]["title"] +
+      " (" + str(books[book_id]["available"]) + " copies available)")
+
 
 
 # To see which books were returned, how many books were returned and which member returned them. The reverse of the borrow function but also updates both dictionaries 
