@@ -201,7 +201,39 @@ def return_book(books, members):
 
 # To search for books in the library, by number of copies, title and author. 
 def search_catalogue(books):
-    pass
+
+    # Check if the catalogue is empty
+    if len(books) == 0:
+        print("The catalogue is empty.")
+        return
+
+    # Ask the user for a keyword 
+    keyword = input("Keyword: ").strip()
+
+    # To track any matching books found 
+    found = False 
+
+    # Search through every book in the library
+    for book_id in books:
+
+        # Check if the keyword appears in the book title
+        if keyword.lower() in books[book_id]["title"].lower():
+
+            # Show a book following the keyword was found
+            found = True 
+
+            # Display the matching book details 
+            print(
+                book_id + ": " +
+                books[book_id]["title"] + " by " +
+                books[book_id]["author"] + " - " +
+                str(books[book_id]["available"]) +
+                " of " + str(books[book_id]["total"]) + " available"
+            )
+
+    # Final check that no books were matching the keyword 
+    if found == False: 
+        print("No books found matching that search.") 
 
 # Member summary taken from both dictionaries to create a list of the member's ID, name, books currently being borrowed, the ID and title and author of each book as well as None if no books borrowed.
 def member_summary(books, members):
