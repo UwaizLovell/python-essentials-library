@@ -102,7 +102,7 @@ def add_book(books, next_book_number):
             existing_book["available"] += copies 
 
             print("Added " + str(copies) + " more copies of " +
-                  existing_book_id + ": " + existing_book["title"] + " by " + books[book_id]["author"] + 
+                  existing_book_id + ": " + existing_book["title"] + " by " + existing_book["author"] + 
                   " (now " + str(existing_book["total"]) + " total)") 
 
             return next_book_number 
@@ -164,7 +164,7 @@ def borrow_book(books, members):
 
     # Check if the member exists 
     if member_id not in members:
-        print("Member not fouund.")
+        print("Member not found.")
         return 
 
     # Check if the book exists 
@@ -174,16 +174,25 @@ def borrow_book(books, members):
 
     # Check if the member has already borrowed 3 books 
     if len(members[member_id]["borrowed"]) >= 3:
-        print("Member has already borrowed maximum number of books.")
+        print(
+            member_id + " " + members[member_id]["name"] + " has already borrowed the maximum number of books."
+        )
         return 
 
     if book_id in members[member_id]["borrowed"]:
-        print("Member has already borrowed this book.") 
+        print(
+            member_id + " " + members[member_id]["name"] + " has already borrowed " +
+            book_id + ": " + books[book_id]["title"] + " by " +
+            books[book_id]["author"] + "."
+        )
         return
 
     # Check if there are copies available
     if books[book_id]["available"]== 0:
-        print("No copies of this book are available.")
+        print(
+            "No copies of " +  book_id + ": " + books[book_id]["title"] + " by " +
+             books[book_id]["author"] + " are available."
+        )
         return
 
     # To update the books dictionary 
@@ -210,8 +219,12 @@ def return_book(books, members):
 
     # Check if the member exists 
     if member_id not in members: 
-        print("Member not found. ")
+        print("Member not found.")
         return 
+
+    if book_id not in books:
+        print("Book not found.")
+        return
 
     # Check if the member has borrowed this book 
     if book_id not in members[member_id]["borrowed"]:
